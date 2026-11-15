@@ -27,8 +27,15 @@
   $("larger").onclick = function () { fontSize = Math.min(36, fontSize + 2); applyFont(); save("fontSize", fontSize); };
   applyFont();
 
-  var theme = load("theme", window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-  function applyTheme() { document.documentElement.dataset.theme = theme; }
+  // The Android app passes the phone's dark-mode setting as ?theme=dark|light.
+  var sysTheme = (location.search.match(/[?&]theme=(dark|light)/) || [])[1] ||
+    (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  var theme = load("theme", sysTheme);
+  function applyTheme() {
+    document.documentElement.dataset.theme = theme;
+    // Let the Android app colour its status bar to match.
+    try { if (window.AndroidApp) window.AndroidApp.setTheme(theme); } catch (e) { /* ignore */ }
+  }
   $("theme").onclick = function () { theme = theme === "dark" ? "light" : "dark"; applyTheme(); save("theme", theme); };
   applyTheme();
 

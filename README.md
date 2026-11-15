@@ -12,6 +12,36 @@ to any device to take it with you.
 - Tap a verse number to highlight it and get a link to it (e.g. `index.html#John.3.16`).
 - A− / A+ change the text size and the half-circle button toggles dark mode. These
   settings and your place are remembered in this browser.
+## Android app
+
+`dist/OfflineBible-1.0.apk` is a ready-built app (1.2 MB, Android 5.0 and newer). It is the
+same reader with the whole Bible inside it. It asks for no permissions and never goes online.
+
+**Installing it:** copy the APK to the phone (or download it from GitHub on the phone) and
+open it. Android will ask you to allow installs from that app (Files, Chrome, etc.) the first
+time. It isn't on Google Play, so Play Protect may also show a warning for an unknown developer.
+
+In the app, the phone's Back button steps back through chapters you visited, then exits. The
+app starts in light or dark to match the phone, and the status bar follows the reader's theme.
+
+### Building the APK
+
+`android/` holds the app source (`MainActivity.java` is a full-screen WebView over the reader).
+When you build, the reader files from the repo root are copied in, so changes to `index.html`,
+`reader/` or the Bible data are picked up automatically.
+
+- **Command line, no Gradle:** `android/build-apk.sh` writes `android/build/OfflineBible.apk`.
+  It needs a JDK plus either an Android SDK or, on Debian/Ubuntu,
+  `apt-get install android-sdk-platform-23 android-sdk-build-tools apksigner zipalign dalvik-exchange`.
+  Set `VERSION_CODE` / `VERSION_NAME` to bump the version.
+- **Android Studio / Gradle:** open the `android/` folder, or run `./gradlew assembleRelease`
+  in it.
+
+Both builds sign with `android/debug.keystore` (password `android`), so either one can update an
+installed copy. That key is committed on purpose and is fine for sideloading. To publish on
+Google Play, make your own private key and change the app ID `com.offlinebible.reader`
+(it's set in `android/app/build.gradle` and `android/build-apk.sh`) to one you own.
+
 ## Bible text
 
 `data/kjv/` holds the complete King James Version (1769 standard text, public domain):
