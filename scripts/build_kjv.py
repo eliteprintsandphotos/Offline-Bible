@@ -6,7 +6,7 @@ Usage:
 
 <source_dir> must contain Books.json plus one <BookNameWithoutSpaces>.json per
 book, as published at https://github.com/aruljohn/Bible-kjv (public domain).
-Writes to data/kjv/ by default.
+Writes kjv.json, kjv.js (for the reader) and kjv.tsv to data/kjv/ by default.
 
 Only whitespace is normalized (runs of spaces collapsed, ends trimmed); the
 verse text is otherwise left exactly as in the source.
@@ -80,7 +80,10 @@ def main() -> None:
         "counts": counts,
         "books": books,
     }
-    (out / "kjv.json").write_text(json.dumps(bible, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    payload = json.dumps(bible, ensure_ascii=False, separators=(",", ":"))
+    (out / "kjv.json").write_text(payload + "\n", encoding="utf-8")
+    # Same data as a script, so the reader works from file:// where fetch() is blocked.
+    (out / "kjv.js").write_text(f"window.KJV={payload};\n", encoding="utf-8")
     (out / "kjv.tsv").write_text("book\tchapter\tverse\ttext\n" + "\n".join(lines) + "\n", encoding="utf-8")
     print(f"wrote {out}: {counts}")
 

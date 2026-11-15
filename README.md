@@ -1,4 +1,17 @@
 # Offline-Bible
+
+## Reading it
+
+Open `index.html` in any browser. It runs entirely from disk with no server and no
+internet. Copy the whole folder (or just `index.html`, `reader/` and `data/kjv/kjv.js`)
+to any device to take it with you.
+
+- Pick a book and chapter, or use the ‹ › buttons (or ← → keys) to go between chapters.
+- Type a reference like `John 3:16`, `1 Cor 13` or `Ps 23` in the box to jump there.
+- Type any other words to search for that phrase; press `/` to focus the box.
+- Tap a verse number to highlight it and get a link to it (e.g. `index.html#John.3.16`).
+- A− / A+ change the text size and the half-circle button toggles dark mode. These
+  settings and your place are remembered in this browser.
 ## Bible text
 
 `data/kjv/` holds the complete King James Version (1769 standard text, public domain):
@@ -7,6 +20,8 @@
 - `kjv.json`: the whole Bible in one file. `books[]` each have `id`, `abbrev`, `name`,
   `testament` (`OT`/`NT`) and `chapters`, which is an array of chapters, each an array
   of verse strings. So `books[b].chapters[c-1][v-1]` is chapter `c`, verse `v`.
+- `kjv.js`: the same data as `kjv.json`, wrapped as `window.KJV = ...` so the reader can load
+  it from `file://`, where browsers block `fetch()`.
 - `kjv.tsv`: one verse per line (`book<TAB>chapter<TAB>verse<TAB>text`), useful for
   search indexes or loading into SQLite.
 
