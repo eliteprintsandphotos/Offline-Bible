@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <!-- book cover -->
+    <path android:fillColor="#fbf8f2"
+        android:pathData="M37,32 h31 a3,3 0 0 1 3,3 v38 a3,3 0 0 1 -3,3 h-31 a4,4 0 0 1 -4,-4 v-36 a4,4 0 0 1 4,-4 z"/>
+    <!-- page edges -->
+    <path android:fillColor="#e4ddd1"
+        android:pathData="M37,70 h34 v3 a3,3 0 0 1 -3,3 h-31 a3,3 0 0 1 0,-6 z"/>
+    <!-- cross -->
+    <path android:fillColor="#8b3a2b"
+        android:pathData="M50,40 h5 v8 h7 v5 h-7 v13 h-5 v-13 h-7 v-5 h7 z"/>
+</vector>

@@ -1,0 +1,56 @@
+plugins {
+    id 'com.android.application'
+}
+
+// The reader and Bible text live at the repo root; copy them in as app assets.
+def readerAssets = layout.buildDirectory.dir('generated/reader-assets')
+def copyReader = tasks.register('copyReader', Copy) {
+    def repo = rootDir.parentFile
+    from(repo) {
+        include 'index.html', 'reader/*.js', 'reader/*.css', 'data/kjv/kjv.js'
+    }
+    into readerAssets
+}
+
+android {
+    namespace 'com.offlinebible.reader'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.offlinebible.reader'
+        minSdk 21
+        targetSdk 34
+        versionCode 1
+        versionName '1.0'
+    }
+
+    signingConfigs {
+        // Same key as build-apk.sh, so either build can update an installed copy.
+        // Not suitable for Google Play: make your own upload key for that.
+        shared {
+            storeFile rootProject.file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'offlinebible'
+            keyPassword 'android'
+        }
+    }
+
+    buildTypes {
+        debug { signingConfig signingConfigs.shared }
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.shared
+        }
+    }
+
+    sourceSets {
+        main.assets.srcDir readerAssets
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+tasks.named('preBuild') { dependsOn copyReader }
