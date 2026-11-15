@@ -34,9 +34,11 @@ When you build, the reader files from the repo root are copied in, so changes to
   It needs a JDK plus either an Android SDK or, on Debian/Ubuntu,
   `apt-get install android-sdk-platform-23 android-sdk-build-tools apksigner zipalign dalvik-exchange`.
   Set `VERSION_CODE` / `VERSION_NAME` to bump the version.
-- **Publishing a release:** push a tag such as `v1.1`
-  (`git tag v1.1 && git push origin v1.1`). The *Android release* GitHub Actions workflow
-  builds the APK and attaches it to a new release named after the tag.
+- **Publishing a release:** in GitHub go to *Actions → Android release → Run workflow*, pick
+  the branch and enter a new tag such as `v1.1`. Pushing a tag
+  (`git tag v1.1 && git push origin v1.1`) also works. The workflow builds the APK and
+  attaches it to a new release named after the tag. The tag sets the version name, and the
+  run number becomes the version code, so each release can update the last.
 - **Android Studio / Gradle:** open the `android/` folder, or run `./gradlew assembleRelease`
   in it.
 
