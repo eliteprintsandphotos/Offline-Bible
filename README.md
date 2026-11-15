@@ -14,10 +14,10 @@ to any device to take it with you.
   settings and your place are remembered in this browser.
 ## Android app
 
-`dist/OfflineBible-1.0.apk` is a ready-built app (1.2 MB, Android 5.0 and newer). It is the
-same reader with the whole Bible inside it. It asks for no permissions and never goes online.
+Download the APK from the repository's **Releases** page (1.2 MB, Android 5.0 and newer).
+It is the same reader with the whole Bible inside it. It asks for no permissions and never goes online.
 
-**Installing it:** copy the APK to the phone (or download it from GitHub on the phone) and
+**Installing it:** download the APK from Releases on the phone (or copy it over) and
 open it. Android will ask you to allow installs from that app (Files, Chrome, etc.) the first
 time. It isn't on Google Play, so Play Protect may also show a warning for an unknown developer.
 
@@ -34,6 +34,9 @@ When you build, the reader files from the repo root are copied in, so changes to
   It needs a JDK plus either an Android SDK or, on Debian/Ubuntu,
   `apt-get install android-sdk-platform-23 android-sdk-build-tools apksigner zipalign dalvik-exchange`.
   Set `VERSION_CODE` / `VERSION_NAME` to bump the version.
+- **Publishing a release:** push a tag such as `v1.1`
+  (`git tag v1.1 && git push origin v1.1`). The *Android release* GitHub Actions workflow
+  builds the APK and attaches it to a new release named after the tag.
 - **Android Studio / Gradle:** open the `android/` folder, or run `./gradlew assembleRelease`
   in it.
 
